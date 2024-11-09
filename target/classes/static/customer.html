@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Place an Order</title>
+  <script>
+    function placeOrder() {
+        var customerName = document.getElementById('customerName').value;
+        var drinkName = document.getElementById('drinkName').value;
+
+        fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                customerName: customerName,
+                drinkName: drinkName
+            })
+        })
+        .then(response => response.json())
+        .then(order => {
+            connect(order.id); // Connect to receive notifications for this order
+            alert('Order placed successfully!');
+        });
+    }
+
+    function connect(orderId) {
+        var eventSource = new EventSource('/api/customer/stream/' + orderId);
+
+        eventSource.onmessage = function(event) {
+            alert(event.data); // Notify the customer
+            eventSource.close(); // Close the connection after receiving the notification
+        };
+
+        eventSource.onerror = function(err) {
+            console.error('EventSource failed:', err);
+            eventSource.close();
+        };
+    }
+  </script>
+</head>
+<body>
+<h1>Place an Order</h1>
+<label for="customerName">Name:</label>
+<input type="text" id="customerName" name="customerName"><br><br>
+<label for="drinkName">Drink:</label>
+<input type="text" id="drinkName" name="drinkName"><br><br>
+<button onclick="placeOrder()">Order</button>
+</body>
+</html>
