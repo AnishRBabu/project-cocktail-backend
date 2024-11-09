@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bartender Orders</title>
+  <script>
+    var orders = [];
+
+    function connect() {
+        var eventSource = new EventSource('/api/bartender/stream');
+
+        eventSource.onmessage = function(event) {
+            var order = JSON.parse(event.data);
+            updateOrders(order);
+        };
+
+        eventSource.onerror = function(err) {
+            console.error('EventSource failed:', err);
+            eventSource.close();
+        };
+    }
+
+    function updateOrders(order) {
+        // Update the orders array
+        var index = orders.findIndex(o => o.id === order.id);
+        if (index === -1) {
+            // New order
+            orders.push(order);
+        } else {
+            // Update existing order
+            orders[index] = order;
+        }
+        displayOrders();
+    }
+
+    function displayOrders() {
+        const ordersList = document.getElementById('orders');
+        ordersList.innerHTML = '';
+        orders.forEach((order) => {
+            const orderItem = document.createElement('li');
+            orderItem.textContent = `${order.customerName} ordered ${order.drinkName} - ${order.completed ? 'Completed' : 'Pending'}`;
+            if (!order.completed) {
+                const completeButton = document.createElement('button');
+                completeButton.textContent = 'Complete';
+                completeButton.onclick = () => markAsCompleted(order.id);
+                orderItem.appendChild(completeButton);
+            }
+            ordersList.appendChild(orderItem);
+        });
+    }
+
+    function markAsCompleted(orderId) {
+        fetch(`/api/bartender/orders/${orderId}/complete`, { method: 'POST' });
+    }
+
+    window.onload = function() {
+        connect();
+    };
+  </script>
+</head>
+<body>
+<h1>Bartender Orders</h1>
+<ul id="orders"></ul>
+</body>
+</html>
