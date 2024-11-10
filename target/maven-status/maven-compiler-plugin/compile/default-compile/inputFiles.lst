@@ -1,6 +1,6 @@
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/CocktailApplication.java
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/config/GlobalCorsConfig.java
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/config/WebSocketConfig.java
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/controller/OrderController.java
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/model/Order.java
-/Users/anish/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/service/OrderService.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/CocktailApplication.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/config/GlobalCorsConfig.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/config/WebSocketConfig.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/controller/OrderController.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/model/Order.java
+/Users/anish/Projects/project-cocktail-backend/src/main/java/com/cocktailnight/cocktail_backend/service/OrderService.java
